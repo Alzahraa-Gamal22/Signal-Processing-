@@ -11,7 +11,7 @@ Library used: wfdb for reading physiological signals and annotations.
 
 Beat Types: Includes various annotations such as Normal (N), Premature Ventricular Contractions (V), and others.
 
-🚀Key Features
+Key Features
 1. Data Preprocessing & Visualization
 Loading ECG records and annotations using wfdb.
 
