@@ -1,5 +1,4 @@
 ECG-Noise-Classifier
-Sub-title: Robust Signal Quality Assessment using Deep 1D-Convolutional Neural Networks
 1. Project Definition
 This project focuses on the automated classification of noise artifacts in Electrocardiogram (ECG) signals. Using the MIT-BIH Noise Stress Test Database, I developed a deep learning model to distinguish between clean cardiac signals and three prevalent types of clinical noise. The goal is to provide a pre-processing layer for medical AI systems to ensure diagnostic reliability by identifying corrupted data segments.
 
