@@ -1,67 +1,55 @@
-ECG Beat Classification: Traditional ML vs. Deep Learning (CNN)
-This project explores the classification of Electrocardiogram (ECG) heartbeats using the MIT-BIH Noise Stress Test Database. It implements two different approaches for arrhythmia detection: a traditional Machine Learning approach (Random Forest) and a Deep Learning approach (Convolutional Neural Networks - CNN).
+ECG-Noise-Classifier
+Sub-title: Robust Signal Quality Assessment using Deep 1D-Convolutional Neural Networks
+1. Project Definition
+This project focuses on the automated classification of noise artifacts in Electrocardiogram (ECG) signals. Using the MIT-BIH Noise Stress Test Database, I developed a deep learning model to distinguish between clean cardiac signals and three prevalent types of clinical noise. The goal is to provide a pre-processing layer for medical AI systems to ensure diagnostic reliability by identifying corrupted data segments.
 
-Overview
-The goal is to accurately classify different types of heartbeats from raw ECG signals. The project covers the entire pipeline from data loading and preprocessing to feature extraction and model evaluation.
+2. Technical Objectives
+Signal Pre-processing: Implement DC-offset removal and Z-score normalization to standardize raw ECG data.
 
- Dataset
-Database: MIT-BIH Noise Stress Test Database (118e00 record).
+Feature Extraction: Utilize 1D-CNNs to automatically learn spatial and temporal features from signal windows (300 samples).
 
-Library used: wfdb for reading physiological signals and annotations.
+Model Optimization: Address overfitting and instability using Global Average Pooling, Dropout, and Learning Rate Schedulers.
 
-Beat Types: Includes various annotations such as Normal (N), Premature Ventricular Contractions (V), and others.
+Performance Analysis: Evaluate the model using Confusion Matrices and F1-scores to understand class-specific challenges (e.g., EM noise vs. Clean signals).
 
-Key Features
-1. Data Preprocessing & Visualization
-Loading ECG records and annotations using wfdb.
+3. Dataset & Noise Types
+The model is trained to classify four distinct categories:
 
-Mapping annotations to specific signal samples.
+Clean: Undistorted ECG signals.
 
-Visualizing raw ECG signals and marking beat locations.
+BW (Baseline Wander): Low-frequency noise caused by breathing or electrode movement.
 
-Segmenting continuous signals into individual heartbeats using a fixed window size.
+EM (Electromyogram): High-frequency noise caused by muscle contractions.
 
-2. Traditional Machine Learning Approach
-Feature Extraction: Manual extraction of statistical features (Mean, Standard Deviation, Max, Min) from each beat segment.
+MA (Motion Artifact): Rapid baseline shifts caused by patient movement.
 
-Model: Random Forest Classifier.
+4. Model Architecture
+The architecture is designed for high efficiency and low parameter count:
 
-Evaluation: Includes Classification Report and Confusion Matrix visualization using seaborn.
+3x Conv1D Layers: With Batch Normalization and ReLU activation for deep feature extraction.
 
-3. Deep Learning Approach (CNN)
-Data Preparation: Reshaping raw signal segments for 1D-Convolutional layers.
+Global Average Pooling: Replaces traditional Flattening to make the model invariant to signal shifts and reduce overfitting.
 
-Architecture: - Multiple Conv1D layers for automatic feature extraction.
+Dense & Dropout: A 64-unit fully connected layer with 50% dropout for robust regularization.
 
-MaxPooling1D for dimensionality reduction.
+Softmax Output: 4-way classification.
 
-Dense layers with Dropout for classification and preventing overfitting.
+5. Key Results
+Overall Accuracy: 94%
 
-Optimization: Uses Adam optimizer and Sparse Categorical Crossentropy loss.
+High Performance: Achieved >97% F1-score for BW and MA noise types.
 
-Visualization: Training vs. Validation accuracy plots.
+Stability: Successfully stabilized the validation curve, reaching convergence through adaptive learning rates.
 
- Requirements
-To run this code, you need the following Python libraries:
+Insight: Identified a common signal processing challenge where high-frequency EM noise occasionally overlaps with the sharp QRS complexes of clean signals.
 
-Bash
-pip install numpy pandas matplotlib seaborn wfdb scikit-learn tensorflow
- Results
-The Random Forest provides a quick baseline using statistical features.
+6. Tech Stack
+Language: Python
 
-The CNN model achieves high accuracy by learning spatial patterns directly from the raw ECG waveforms without manual feature engineering.
+Deep Learning: TensorFlow / Keras
 
-Project Structure
-Data Loading: Importing .dat and .atr files.
+Signal Processing: WFDB, Scipy
 
-Segmentation: Slicing the signal into 200-300 sample windows around each R-peak.
+Data Science: Scikit-learn, NumPy, Pandas
 
-Classification: Training and testing the models.
-
-Analytics: Plotting confusion matrices and learning curves.
- How to use
-Clone the repository.
-
-Update the path variable in the script to point to your local MIT-BIH dataset directory.
-
-Run the cells in a Jupyter Notebook or an IDE like PyCharm/VSCode.
+Visualization: Matplotlib, Seaborn
